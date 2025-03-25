@@ -48,5 +48,13 @@ Set-SmbServerConfiguration -EnableMultiChannel $true -Confirm:$false
 
 Set-SmbServerConfiguration -EnableSecuritySignature $false -Confirm:$false
 
+Set-SmbClientConfiguration -EnableMultiChannel $true -Force
+
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters" -Name "MaxCmds" -Value 65535 -Type DWORD
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters" -Name "MaxMpxCt" -Value 65535 -Type DWORD
+
+Restart-Service LanmanWorkstation
+
+Set-SmbClientConfiguration -SessionTimeout 30
 
 Restart-Computer -Force
