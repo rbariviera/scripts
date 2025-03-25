@@ -55,6 +55,6 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanWorkstatio
 
 Restart-Service LanmanWorkstation
 
-Set-SmbClientConfiguration -SessionTimeout 30
+Set-SmbClientConfiguration -SessionTimeout 30 -Force -Confirm:$false
 
 Restart-Computer -Force -Confirm:$false
