@@ -57,4 +57,9 @@ Restart-Service LanmanWorkstation
 
 Set-SmbClientConfiguration -SessionTimeout 30 -Force -Confirm:$false
 
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name AutoDetect -Value 0
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name AutoConfigURL -Value ""
+Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name AutoConfigURL -ErrorAction SilentlyContinue
+Rundll32.exe inetcpl.cpl,ClearMyTracksByProcess 255
+
 Restart-Computer -Force -Confirm:$false
